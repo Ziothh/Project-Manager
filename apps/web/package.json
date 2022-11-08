@@ -17,12 +17,12 @@
     "@types/node": "^17.0.12",
     "@types/react": "17.0.37",
     "autoprefixer": "^10.4.2",
-    "config": "*",
     "eslint": "7.32.0",
     "next-transpile-modules": "9.0.0",
     "postcss": "^8.4.6",
     "tailwindcss": "^3.0.18",
-    "tsconfig": "*",
+    "config": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "^4.5.3"
   }
 }

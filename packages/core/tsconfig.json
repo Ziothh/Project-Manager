@@ -1,0 +1,49 @@
+{
+    "buildOptions": {
+
+    },
+    
+    "compilerOptions": {
+        // "target": "ESNext",
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        // "module": "ESNext",
+        "module": "ESNext",
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "moduleResolution": "Node",
+        // "moduleResolution": "NodeNext",
+
+        "strict": true,
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "noEmit": false,
+        "noUnusedLocals": false,
+        "declaration": true,
+        "noUnusedParameters": false,
+        "noImplicitThis": false,
+        "noImplicitAny": false,
+        "allowSyntheticDefaultImports": true,
+        "outDir": "./dist",
+        "rootDir": "src",
+        "noImplicitReturns": false,
+        "allowJs": true,
+        "baseUrl": ".",
+        // "baseUrl": "backend/resources/src",
+        // "jsx": "preserve",
+        // "baseUrl": ".",
+        // "rootDir": ".",
+        // "types": ["react/next", "react-dom/next"],
+        "paths": {
+            "@config/*": ["./src/config/*"],
+            // Paths relative to the "baseUrl"
+            // "@assets/*": ["assets/*"],
+            // "@components/*": ["ts/components/*"],
+            // "@ziothh/*": ["./@ziothh"],
+            // "@scss/*": ["scss/*"],
+            // "@node_modules/*": ["../node_modules/*"]
+        }
+    },
+    "include": ["./src/**/*"],
+    "exclude": ["node_modules"]
+}

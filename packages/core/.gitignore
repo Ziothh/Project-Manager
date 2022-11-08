@@ -1,0 +1,5 @@
+generated/
+!generated/.gitkeep
+projects.json
+dist/
+node_modules/
