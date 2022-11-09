@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --experimental-specifier-resolution=node main.js",
+    "start:dev": "pnpm build && pnpm start",
     "dev": "nodemon --exec pnpm start -w ./dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
@@ -15,9 +16,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^17.0.12",
+    "@types/node": "^18.11.9",
     "tsc-alias": "^1.7.1",
     "tsconfig-paths": "^4.1.0",
-    "typescript": "^4.8.4"
+    "typescript": "4.9.1-beta"
   }
 }
