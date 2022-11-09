@@ -15,6 +15,7 @@ importers:
   apps/electron:
     specifiers:
       '@typescript-eslint/eslint-plugin': 5.10.2
+      '@workspace/core': workspace:*
       cross-env: 7.0.3
       dts-for-context-bridge: 0.7.1
       electron: 17.0.0
@@ -28,6 +29,7 @@ importers:
       typescript: 4.5.5
       vite: 2.7.13
     dependencies:
+      '@workspace/core': link:../../packages/core
       electron-updater: 4.6.5
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -47,6 +49,7 @@ importers:
     specifiers:
       '@types/node': ^17.0.12
       '@types/react': 17.0.37
+      '@workspace/core': workspace:*
       autoprefixer: ^10.4.2
       config: workspace:*
       eslint: 7.32.0
@@ -59,14 +62,15 @@ importers:
       tsconfig: workspace:*
       typescript: ^4.5.3
     dependencies:
+      config: link:../../packages/config
       next: 12.0.8_sfoxds7t5ydpegc3knd667wn6m
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
       '@types/node': 17.0.45
       '@types/react': 17.0.37
+      '@workspace/core': link:../../packages/core
       autoprefixer: 10.4.13_postcss@8.4.18
-      config: link:../../packages/config
       eslint: 7.32.0
       next-transpile-modules: 9.0.0
       postcss: 8.4.18

@@ -1,9 +1,10 @@
 {
-  "name": "core",
+  "name": "@workspace/core",
   "version": "0.0.0",
   "type": "module",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "start": "node --experimental-specifier-resolution=node main.js",
     "start:dev": "pnpm build && pnpm start",

@@ -1,41 +1,36 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import type {Project} from "@workspace/core/dist/projects/types"
 
 export default function Web() {
-  return (
-    <div>
-      <div className="bg-gray-800 w-screen h-screen flex flex-col text-gray-100 p-4">
-        <h1 className="text-4xl font-bold text-center">
-          Yerba: An Electron Monorepo Demo
-        </h1>
-        <div>
-          <div className="text-2xl font-semibold">Using...</div>
-          <ul>
-            <li>Electron</li>
-            <li>Vite</li>
-            <li>TurboRepo</li>
-            <li>Next.js</li>
-            <li>Typescript</li>
-            <li>Tailwind Monorepo</li>
-          </ul>
+    const [projects, setProjects] = useState<Project[]>([])
+
+    useEffect(() => {
+        window.projects.listProjects("/Users/digitalastronaut/Websites/websites")
+        .then(foundProjects => {
+            setProjects(foundProjects)
+        })
+    }, [])
+
+    return (
+        <div className="text-gray-100 bg-gray-900 max-w-screen max-h-screen overflow-y-auto overflow-x-hidden">
+            <div className=" w-screen h-screen flex flex-col p-4">
+                <h1 className="text-4xl font-bold text-center">
+                Yerba: An Electron Monorepo Demo
+                </h1>
+                <div>
+                    <div className="text-2xl font-semibold">Projects: </div>
+                    <ul>
+                        {projects.map(p => (
+                            <li key={p.name}>
+                                <pre>
+                                    {JSON.stringify(p, null, 4)}
+                                </pre>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div className="p-2" />
-        <div>...yeah this kinda sucked to figure out</div>
-        <div className="p-4" />
-        <div className="text-2xl italic">Wanna see some typesafe data?</div>
-        <div>
-          <span className="font-bold">{"Yerba version: "}</span>
-          {window.yerba.version}
-        </div>
-        <div>
-          <span className="font-bold">
-            {"Hashed Yerba version using node's builtin crypto: "}
-          </span>
-          {window.nodeCrypto.sha256sum(window.yerba.version.toString())}
-        </div>
-        <div className="absolute bottom-0 right-0 p-4 w-full flex justify-center">
-          Quickly hacked together by Theo
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
