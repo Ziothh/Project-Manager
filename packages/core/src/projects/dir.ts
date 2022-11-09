@@ -1,20 +1,10 @@
+import type { Project, ProjectList } from "./types"
 import { readdir } from "fs/promises"
 import EXCLUDED_FOLDERS from "@config/excludedFolders"
 import { Dirent } from "fs"
 import { resolve } from "path"
 import { dir } from "console"
-
-interface Project {
-    name: string
-    paths: {
-        absolute: string
-        relative: string
-    },
-    tags: string[],
-    type: string
-}
-
-type ProjectList = Project[]
+import { getProjectType } from "./utils"
 
 // type ProjectMap = {[]}
 
@@ -31,10 +21,11 @@ const dirIsProject = (dir: Dirent[]) => {
 // const filterExludedFilesFromDir = (dirList: Dirent[]) => dirList.filter(d => d.isDirectory() || !EXCLUDED_FILES.has(d.name)) 
 const isValidDir = (dirent: Dirent) => dirent.isDirectory() && !EXCLUDED_FOLDERS.has(dirent.name)
 
+
 const parseDir = async (basePath: string, projectList: ProjectList, sections: string[] = []) => {
     const dirPath = resolve(basePath, ...sections)
     
-    console.log(`Parsing dir: ${dirPath}`);
+    // console.log(`Parsing dir: ${dirPath}`);
     const dirList = await readDir(resolve(basePath, dirPath))
 
     const dirName = sections[sections.length - 1]
@@ -48,8 +39,9 @@ const parseDir = async (basePath: string, projectList: ProjectList, sections: st
                 absolute: dirPath,
                 relative: `./${sections.join("/")}`,
             },
-            tags: sections,
-            type: "TODO"
+            tags: sections.slice(0, -1),
+            type: getProjectType(dirList),
+            dirList,
         })
 
         return
@@ -62,7 +54,7 @@ const parseDir = async (basePath: string, projectList: ProjectList, sections: st
         
         if (!isValidDir(directory)) continue
 
-        const absDirectoryPath = resolve(basePath, ...sections, directory.name)
+        // const absDirectoryPath = resolve(basePath, ...sections, directory.name)
 
         // console.log(`Reading: ${absDirectoryPath}`);
         // if (dirIsProject(await readDir(absDirectoryPath))) {
@@ -84,13 +76,13 @@ const parseDir = async (basePath: string, projectList: ProjectList, sections: st
     return await Promise.all(promises)
 }
 
+/**
+ * - Reads the projects dir
+ * - Then loops over every folder in the dir. (~ ignore files)
+ *   - If: that folder contains a .git folder it is a project
+ *   - Else: if it has subfolders: loop again
+*/
 const readProjects = async (projectsDir: string) => {
-    /*
-     - Read the projects dir
-     - Then loop over every folder in the dir. (~ ignore files)
-        - If that folder contains a .git folder it is a project
-        - Else if it has subfolders: loop again
-    */
 
     // const projects: {[name: string]: {
     //     path: string,
