@@ -31,5 +31,5 @@ contextBridge.exposeInMainWorld("yerba", { version: 0.1 });
  * @example
  * window.nodeCrypto('data')
  */
-contextBridge.exposeInMainWorld("nodeCrypto", { sha256sum });
-contextBridge.exposeInMainWorld("projects", projects);
+// contextBridge.exposeInMainWorld("nodeCrypto", { sha256sum });
+// contextBridge.exposeInMainWorld("projects", projects);

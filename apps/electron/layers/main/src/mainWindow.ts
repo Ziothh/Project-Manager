@@ -3,6 +3,14 @@ import { join } from "path";
 
 async function createWindow() {
   const browserWindow = new BrowserWindow({
+    // frame: false,
+    // // kiosk: true,
+    // movable: true,
+    // trafficLightPosition: {
+    //     x: 0,
+    //     y: 0,
+    // },
+
     show: false, // Use 'ready-to-show' event to show window
     webPreferences: {
       nativeWindowOpen: true,

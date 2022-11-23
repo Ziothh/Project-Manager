@@ -1,0 +1,13 @@
+{
+	"name": "@project-manager/assets",
+	"version": "1.0.0",
+	"license": "GPL-3.0-only",
+	"private": true,
+    "main": "./src/index.ts",
+	"scripts": {
+		"build": "./scripts/generateSvgImports.mjs"
+	},
+	"devDependencies": {
+		"@types/node": "^18.11.9"
+	}
+}

@@ -1,7 +1,8 @@
-import type { AppProps /*, AppContext */ } from "next/app";
+/* 
+import type { AppProps } from "next/app";
 import Head from "next/head";
 import React from "react";
-import "../styles/globals.css";
+import "../styles/globals.scss";
 
 const SafeAppContents = ({ Component, pageProps }: AppProps) => {
   const [mounted, setMounted] = React.useState(false);
@@ -39,3 +40,26 @@ function AppWrapper(props: AppProps) {
 }
 
 export default AppWrapper;
+*/
+
+import { type AppType } from "next/app";
+import { type Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
+
+import { trpc } from "../utils/trpc";
+
+import "../styles/globals.scss";
+
+const MyApp: AppType<{ session: Session | null }> = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}) => {
+  return (
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
+};
+
+// export default trpc.withTRPC(MyApp);
+export default MyApp
