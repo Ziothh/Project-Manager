@@ -8,14 +8,15 @@ interface Props {
 
 
 const homePage: React.FC<Props> = ({}) => {
-    const hello = trpc.project.getAll.useQuery();
-    
+    // const hello = trpc.project.getAll.useQuery({
+    //     projectRootId: "clav2t9zz0000xr6coyoommcl",
+    // }); 
 
     return (
         <div>
-            Home
+            Loading...
             <pre>
-            {JSON.stringify(hello.data!, null, 4)}
+            {/* {JSON.stringify(hello.data!, null, 4)} */}
             </pre>
         </div>
     )

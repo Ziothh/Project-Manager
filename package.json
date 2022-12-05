@@ -11,7 +11,8 @@
     "dev": "turbo run dev --parallel",
     "compile": "turbo run compile",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "web": "pnpm --filter @workspace/web -- "
   },
   "devDependencies": {
     "prettier": "^2.5.1",

@@ -7,14 +7,18 @@ import { env } from "../../env/server.mjs";
 //   var prisma: PrismaClient | undefined;
 // }
 
+const SILENT_DEV = true
+
 export const prisma: PrismaClient =
-  global.prisma ||
-  new PrismaClient({
-    log: env.NODE_ENV === "development" 
-        ? ["query", "error", "warn"] 
-        : ["error"],
-  });
+    // @ts-ignore
+    global.prisma ||
+    new PrismaClient({
+        log: env.NODE_ENV === "development" 
+            ? (SILENT_DEV ? [] : ["query", "error", "warn"]) 
+            : ["error"],
+    });
 
 if (env.NODE_ENV !== "production") {
-  global.prisma = prisma;
+    // @ts-ignore
+    global.prisma = prisma;
 }

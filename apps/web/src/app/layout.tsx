@@ -2,9 +2,12 @@
 
 import clsx from 'clsx';
 import { FC, PropsWithChildren, Suspense } from 'react';
+import { Sidebar } from '~/components/layout/Sidebar';
 import { ClientProvider, trpc } from '~/utils/trpc';
 // import {} from "@"
 import "../styles/globals.scss"
+import { AppContext } from '../features/global/context/AppContext';
+import Document from './Document';
 
 // import { Sidebar } from './components/layout/Sidebar';
 // import { Toasts } from './components/primitive/Toasts';
@@ -14,14 +17,7 @@ const AppLayout: FC<PropsWithChildren> = ({children}) => {
 	// const os = useOperatingSystem();
 
 	return (<>
-        <html lang="en">
-        <head>
-            <meta charSet="UTF-8" />
-            <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Project Manager</title>
-        </head>
-        <body>
+        <AppContext>
             <div
             className={clsx(
                 // App level styles
@@ -37,7 +33,8 @@ const AppLayout: FC<PropsWithChildren> = ({children}) => {
                 return false;
             }}
             >
-                {/* <Sidebar /> */}
+                <Sidebar />
+
                 <div className="relative flex w-full bg-gray-850">
                     <Suspense fallback={<div className="w-screen h-screen bg-app" />}>
                         {children}
@@ -45,13 +42,14 @@ const AppLayout: FC<PropsWithChildren> = ({children}) => {
                 </div>
                 {/* <Toasts /> */}
             </div>
-        </body>
-        </html>
+        </AppContext>
     </>);
 }
 
-export default (props) => (
+export default (props: any) => (
     <ClientProvider>
-        <AppLayout {...props}/>
+        <Document>
+            <AppLayout {...props}/>
+        </Document>
     </ClientProvider>
-)
+) as unknown as typeof AppLayout

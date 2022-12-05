@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { ReactNode, useState } from 'react';
 import { animated, useTransition } from 'react-spring';
 
-import { Button, Loader } from '../';
+import { Button, Loader } from '.';
 
 export interface DialogProps extends DialogPrimitive.DialogProps {
 	open: boolean;

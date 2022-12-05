@@ -1,9 +1,10 @@
 import { Menu, Transition } from '@headlessui/react';
-import { ReactComponent as CaretDown } from '@sd/assets/svgs/caret.svg';
+import CaretDown from '@workspace/assets/svgs/caret.svg';
 import { VariantProps, cva } from 'class-variance-authority';
 import clsx from 'clsx';
-import { Fragment, PropsWithChildren } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import { FC, Fragment, PropsWithChildren } from 'react';
+
 
 import * as UI from '.';
 import { tw } from './utils';
@@ -31,36 +32,42 @@ const itemIconStyles = cva('mr-2 w-4 h-4', {
 });
 
 type DropdownItemProps =
-	| PropsWithChildren<{
-			to?: string;
-			className?: string;
-			icon?: any;
-			onClick?: () => void;
-	  }> &
-			VariantProps<typeof itemStyles>;
+    | PropsWithChildren<{
+        href?: string;
+        className?: string;
+        icon?: any;
+        onClick?: () => void;
+        disabled?: boolean
+    }> & VariantProps<typeof itemStyles>;
 
-export const Item = ({ to, className, icon: Icon, children, ...props }: DropdownItemProps) => {
-	let content = (
+export const Item: FC<DropdownItemProps> = ({ href, className, icon: Icon, children, disabled, ...props }) => {
+	const content = (
 		<>
 			{Icon && <Icon className={itemIconStyles(props)} />}
 			<span className="text-left">{children}</span>
 		</>
 	);
 
-	return to ? (
-		<Link {...props} to={to} className={clsx(itemStyles(props), className)}>
-			{content}
-		</Link>
-	) : (
-		<button {...props} className={clsx(itemStyles(props), className)}>
-			{content}
-		</button>
-	);
+    const styles = clsx(itemStyles(props), className, disabled && "opacity-25 pointer-events-none")
+
+	return (
+        <Menu.Item disabled={disabled}>
+            {href ? (
+                <Link {...props} href={href} className={styles}>
+                    {content}
+                </Link>
+            ) : (
+                <button {...props} className={styles}>
+                    {content}
+                </button>
+            )}
+        </Menu.Item>
+    )
 };
 
 export const Button = ({ children, className, ...props }: UI.ButtonProps) => {
 	return (
-		<UI.Button size="sm" {...props} className={clsx('flex text-left', className)}>
+		<UI.Button size="sm" {...props} className={clsx('flex text-left cursor-pointer', className)}>
 			{children}
 			<span className="flex-grow" />
 			<CaretDown

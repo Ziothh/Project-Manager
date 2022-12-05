@@ -1,5 +1,5 @@
 import * as SelectPrimitive from '@radix-ui/react-select';
-import { ReactComponent as ChevronDouble } from '@sd/assets/svgs/chevron-double.svg';
+import ChevronDouble from '@workspace/assets/svgs/chevron-double.svg';
 import clsx from 'clsx';
 import { CaretDown, Check } from 'phosphor-react';
 import { PropsWithChildren } from 'react';

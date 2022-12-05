@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@workspace/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,26 +10,37 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.4",
     "@next-auth/prisma-adapter": "^1.0.4",
-    "@prisma/client": "^4.5.0",
+    "@prisma/client": "^4.7.0",
+    "@radix-ui/react-dialog": "^1.0.2",
+    "@radix-ui/react-dropdown-menu": "^2.0.1",
+    "@radix-ui/react-select": "^1.1.2",
+    "@radix-ui/react-switch": "^1.0.1",
     "@tanstack/react-query": "^4.16.0",
     "@trpc/client": "^10.0.0",
     "@trpc/next": "^10.0.0",
     "@trpc/react-query": "^10.0.0",
     "@trpc/server": "^10.0.0",
+    "@workspace/assets": "workspace:^1.0.0",
+    "@ziothh/react-hooks": "workspace:^0.0.1",
     "class-variance-authority": "^0.3.0",
     "clsx": "^1.2.1",
     "config": "workspace:*",
     "next": "13.0.2",
     "next-auth": "^4.15.1",
+    "phosphor-react": "^1.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-loading-icons": "^1.1.0",
+    "react-spring": "^9.5.5",
     "sass": "^1.56.1",
     "superjson": "1.9.1",
     "zod": "^3.18.0"
   },
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.1.1",
+    "@svgr/webpack": "^6.5.1",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.8",
@@ -46,11 +57,11 @@
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
-    "prisma": "^4.5.0",
+    "prisma": "^4.7.0",
     "tailwindcss": "^3.2.0",
     "tailwindcss-radix": "^2.6.1",
     "tsconfig": "workspace:*",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.3"
   },
   "ct3aMetadata": {
     "initVersion": "6.10.2"

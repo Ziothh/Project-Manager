@@ -1,6 +1,7 @@
 import { VariantProps, cva, cx } from 'class-variance-authority';
 import { forwardRef, PropsWithChildren } from 'react';
 import Link, {LinkProps} from 'next/link';
+import { AppLink, AppLinkProps } from './AppLink';
 
 export interface ButtonBaseProps extends VariantProps<typeof styles> {}
 
@@ -11,7 +12,7 @@ export type ButtonProps = ButtonBaseProps &
 
 export type LinkButtonProps = ButtonBaseProps &
 	React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-		href?: string;
+		href: AppLinkProps["href"];
 	};
 
 type Button = {
@@ -68,7 +69,7 @@ export const Button = forwardRef<
 >(({ className, ...props }, ref) => {
 	className = cx(styles(props), className);
 	return hasHref(props) ? (
-		<a {...props} ref={ref as any} className={cx(className, 'no-underline inline-block')} />
+        <AppLink {...props} ref={ref as any} className={cx(className, 'no-underline inline-block')}/>
 	) : (
 		<button {...(props as ButtonProps)} ref={ref as any} className={className} />
 	);
@@ -76,7 +77,12 @@ export const Button = forwardRef<
 
 export const ButtonLink = forwardRef<
 	HTMLLinkElement,
-	PropsWithChildren<ButtonBaseProps & LinkProps & {className?: string} & React.RefAttributes<HTMLAnchorElement>>
+	PropsWithChildren<
+        ButtonBaseProps 
+        & AppLinkProps 
+        & {className?: string} 
+        & React.RefAttributes<HTMLAnchorElement>
+    >
 >(({ className, href, ...props }, ref) => {
 	className = cx(
 		styles(props),
@@ -85,8 +91,9 @@ export const ButtonLink = forwardRef<
 	);
 
 	return (
-		<Link href={href} ref={ref as any} className={className}>
+		<AppLink href={href} ref={ref as any} className={className}>
 			{props.children}
-		</Link>
+		</AppLink>
 	);
 });
+

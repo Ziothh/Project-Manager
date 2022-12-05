@@ -10,7 +10,12 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    // "noPropertyAccessFromIndexSignature": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
   },
   "include": [
     "next-env.d.ts",
