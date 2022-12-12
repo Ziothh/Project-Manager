@@ -49,7 +49,10 @@ import { useRouter, usePathname } from "next/navigation"
 import { SIDEBAR_NAV_ITEMS } from '~/constants';
 import { trpc, type RouterOutputs } from '~/utils/trpc';
 import type {Project, ProjectRoot} from "@prisma/client"
-import { useAppCtx } from '~/features/global';
+import { ProfilePageParams } from '~/app/profiles/[profileId]/page';
+import { useAppCtx } from '~/app/profiles/[profileId]/AppContext';
+import { useProfileCtx } from '~/features/global';
+import ROUTES from '~/constants/routes';
 
 const SidebarBody = tw.div`flex relative flex-col flex-grow-0 flex-shrink-0 w-48 min-h-full px-2.5 border-r border-sidebar-divider bg-sidebar`;
 
@@ -68,14 +71,15 @@ const PROJECT_ROOTS = [
 // type TQueriedProject = NonNullable<ReturnType<typeof trpc.projectRoot.getAll.useQuery>["data"]>[number];
 type TQueriedProjectRoot = RouterOutputs["projectRoot"]["getAll"][number];
 
-export function Sidebar() {
+export const Sidebar: FC<Pick<ProfilePageParams, "profileId">> = ({
+    profileId
+}) => {
 	// DO NOT DO LIBRARY QUERIES OR MUTATIONS HERE. This is rendered before a library is set.
 	// const os = useOperatingSystem();
     // const {project, isLoading: isLoadingProjects} = {project: PROJECT_ROOTS[0], isLoading: false}
 	// const { library, libraries, isLoading: isLoadingLibraries, switchLibrary } = useCurrentLibrary();
 	// const debugState = useDebugState();
 
-    const {currentProfile,} = useAppCtx()
 	const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
 
@@ -101,7 +105,7 @@ export function Sidebar() {
                     ))}
 				</div>
 				{/* {project && <LibraryScopedSection />} */}
-                {currentProfile && <FavoritedProjects profile={currentProfile} />}
+                {profileId && <FavoritedProjects profile={{id: profileId}} />}
 				<div className="flex-grow" />
 			</SidebarContents>
             
@@ -152,14 +156,16 @@ interface ProfileSelectProps {
 
 }
 const ProfileSelect: React.FC<ProfileSelectProps> = ({}) => {
-    const {
-        allProfilesQuery: {
-            data: profiles,
-            isLoading
-        },
-        currentProfile,
-        setCurrentProfile,
-    } = useAppCtx()
+    const {data: profiles, isLoading} = trpc.profile.getAll.useQuery({})
+    const {currentProfile, setCurrentProfile} = useProfileCtx()
+    // const {
+    //     // allProfilesQuery: {
+    //     //     data: profiles,
+    //     //     isLoading
+    //     // },
+    //     // currentProfile,
+    //     // setCurrentProfile,
+    // } = useAppCtx()
 
     return (
         <SidebarHeader>
@@ -188,9 +194,9 @@ const ProfileSelect: React.FC<ProfileSelectProps> = ({}) => {
                 <Dropdown.Section>
                     {profiles?.map((p) => (
                         <Dropdown.Item
+                            href={ROUTES.profile(p.id)}
                             selected={p.id === currentProfile?.id}
                             key={p.id}
-                            onClick={() => setCurrentProfile(p)}
                         >
                             {p.name}
                         </Dropdown.Item>
@@ -200,8 +206,8 @@ const ProfileSelect: React.FC<ProfileSelectProps> = ({}) => {
                     <Dropdown.Item disabled icon={GearSix} href="settings/library">
                         Profile Settings
                     </Dropdown.Item>
-                    <Dropdown.Item icon={Plus} onClick={() => undefined /* setIsCreateDialogOpen(true) */}>
-                        Add Library
+                    <Dropdown.Item disabled icon={Plus} onClick={() => undefined /* setIsCreateDialogOpen(true) */}>
+                        Add Profile
                     </Dropdown.Item>
                     <Dropdown.Item disabled icon={Lock} onClick={() => alert('TODO: Not implemented yet!')}>
                         Lock

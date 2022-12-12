@@ -7,7 +7,9 @@ import { router, publicProcedure } from "../trpc";
 
 const profileRouter = router({
     // Queries
-    getAll: publicProcedure.query(({ ctx }) => {
+    getAll: publicProcedure
+    .input(PROFILE_VALIDATORS.getAll())
+    .query(({ ctx }) => {
         // return projects.listProjects("/Users/digitalastronaut/Websites/websites")
         return ctx.prisma.profile.findMany()
     }),

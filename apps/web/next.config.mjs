@@ -10,7 +10,8 @@
 const config = {
     experimental: {
         externalDir: true,
-        appDir: true
+        appDir: true,
+        serverComponentsExternalPackages: ['@prisma/client'],
     },
     reactStrictMode: true,
     swcMinify: true,
